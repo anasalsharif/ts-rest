@@ -21,6 +21,10 @@ export function fixtureIsActive(user: FixtureUser): boolean {
   return user.active;
 }
 
+export function fixtureToPublicUser(user: FixtureUser): Pick<FixtureUser, 'id' | 'active'> {
+  return { id: user.id, active: user.active };
+}
+
 export function fixtureNormalizeTag(tag: string, opts?: { trimOnly?: boolean }): number {
   const normalized = collapseWhitespace(tag);
   return opts?.trimOnly ? normalized.length : normalized.toLowerCase().length;
