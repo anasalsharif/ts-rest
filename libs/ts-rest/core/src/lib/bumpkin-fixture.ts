@@ -27,7 +27,8 @@ export function fixtureToPublicUser(user: FixtureUser): Pick<FixtureUser, 'id' |
 
 export function fixtureNormalizeTag(tag: string, opts?: { trimOnly?: boolean }): number {
   const normalized = collapseWhitespace(tag);
-  return opts?.trimOnly ? normalized.length : normalized.toLowerCase().length;
+  const lowered = normalized.toLowerCase().replace(/[-.]+$/g, '');
+  return opts?.trimOnly ? normalized.length : lowered.length;
 }
 
 function collapseWhitespace(value: string): string {
