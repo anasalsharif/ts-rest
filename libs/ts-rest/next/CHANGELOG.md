@@ -1,5 +1,15 @@
 # @ts-rest/next
 
+## 3.53.0
+
+### Minor Changes
+
+- 81263a6: Support the "Standard Schema" validation interface to enable support for Zod4, Valibot, Arktype etc.
+
+### Patch Changes
+
+- 81263a6: fix: nextjs query params polute reading path params
+
 ## 3.52.1
 
 ## 3.52.0

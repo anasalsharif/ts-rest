@@ -1,5 +1,17 @@
 # @ts-rest/core
 
+## 3.53.0
+
+### Minor Changes
+
+- 81263a6: Support the "Standard Schema" validation interface to enable support for Zod4, Valibot, Arktype etc.
+
+### Patch Changes
+
+- 81263a6: Fix handling of responses with no body and content type json header
+- 81263a6: Fixed a bug where leading and trailing forward slashes the baseUrl and path would double up
+- 81263a6: allow passing numbers as path params into ts-rest core
+
 ## 3.52.1
 
 ### Patch Changes

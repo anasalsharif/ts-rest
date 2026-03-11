@@ -1,5 +1,15 @@
 # @ts-rest/serverless
 
+## 3.53.0
+
+### Minor Changes
+
+- 81263a6: Support the "Standard Schema" validation interface to enable support for Zod4, Valibot, Arktype etc.
+
+### Patch Changes
+
+- 81263a6: Expose more types to fix build issues with "verbatimModuleSyntax" and other such build configs
+
 ## 3.52.1
 
 ## 3.52.0

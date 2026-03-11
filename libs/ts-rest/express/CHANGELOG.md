@@ -1,5 +1,12 @@
 # @ts-rest/express
 
+## 3.53.0
+
+### Minor Changes
+
+- 81263a6: add express v5 support to @ts-rest/express
+- 81263a6: Support the "Standard Schema" validation interface to enable support for Zod4, Valibot, Arktype etc.
+
 ## 3.52.1
 
 ## 3.52.0

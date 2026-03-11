@@ -1,5 +1,12 @@
 # @ts-rest/fastify
 
+## 3.53.0
+
+### Minor Changes
+
+- 81263a6: Support the "Standard Schema" validation interface to enable support for Zod4, Valibot, Arktype etc.
+- 81263a6: export AppRouteImplementation from fastify to allow for usage cross-file
+
 ## 3.52.1
 
 ## 3.52.0
