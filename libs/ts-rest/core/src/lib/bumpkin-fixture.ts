@@ -4,7 +4,7 @@ export interface FixtureUser {
   active: boolean;
 }
 
-export type FixtureFetchUser = (id: string) => Promise<FixtureUser>;
+export type FixtureFetchUser = (id: string, tenantId: string) => Promise<FixtureUser>;
 
 export const FIXTURE_API_VERSION = 'v1';
 export const FIXTURE_PAGE_SIZE = 20;
