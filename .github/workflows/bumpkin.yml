@@ -1,0 +1,40 @@
+name: Bumpkin
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+concurrency:
+  group: bumpkin-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  analyze:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+
+      - name: Checkout Bumpkin action
+        uses: actions/checkout@v4
+        with:
+          repository: trybumpkin/bumpkin
+          ref: 0.10.0
+          path: .github/actions/bumpkin
+          token: ${{ secrets.BUMPKIN_ACTION_TOKEN }}
+
+      - name: Run Bumpkin
+        uses: ./.github/actions/bumpkin
+        with:
+          provider: auto
+          model: openai/gpt-4.1-mini
+          fallback_model: openai/gpt-4o-mini
+          use_difftastic: "false"
+          models_token: ${{ secrets.MODELS_TOKEN }}

@@ -1,0 +1,21 @@
+case_id	expected	branch	title
+01	MAJOR	fixture/01-major-signature-break	fixture(MAJOR): require tenantId in exported fetch type
+02	MAJOR	fixture/02-major-remove-export	fixture(MAJOR): remove exported slug helper
+03	MAJOR	fixture/03-major-field-rename	fixture(MAJOR): rename exported interface field
+04	MAJOR	fixture/04-major-return-type	fixture(MAJOR): change normalizeTag return type
+05	MINOR	fixture/05-minor-add-helper	fixture(MINOR): add exported domain helper
+06	MINOR	fixture/06-minor-add-const	fixture(MINOR): add exported retries constant
+07	MINOR	fixture/07-minor-add-optional-field	fixture(MINOR): add optional displayName to exported interface
+08	MINOR	fixture/08-minor-add-role-type	fixture(MINOR): add exported role union type
+09	MINOR	fixture/09-minor-optional-param	fixture(MINOR): add optional options param
+10	MINOR	fixture/10-minor-add-projection	fixture(MINOR): add exported public projection helper
+11	PATCH	fixture/11-patch-slug-fix	fixture(PATCH): tighten slug normalization
+12	PATCH	fixture/12-patch-boolean-guard	fixture(PATCH): harden active guard logic
+13	PATCH	fixture/13-patch-constant-tune	fixture(PATCH): tune page-size constant
+14	PATCH	fixture/14-patch-whitespace-fix	fixture(PATCH): improve whitespace normalization
+15	PATCH	fixture/15-patch-tag-sanitization	fixture(PATCH): sanitize trailing separators in tags
+16	PATCH	fixture/16-patch-empty-email	fixture(PATCH): handle empty email fallback
+17	NO_BUMP	fixture/17-no-bump-doc-note	fixture(NO_BUMP): docs-only fixture note update
+18	NO_BUMP	fixture/18-no-bump-readme	fixture(NO_BUMP): readme wording update
+19	NO_BUMP	fixture/19-no-bump-issue-template	fixture(NO_BUMP): issue template wording update
+20	NO_BUMP	fixture/20-no-bump-doc-checklist	fixture(NO_BUMP): add docs checklist

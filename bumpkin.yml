@@ -1,0 +1,17 @@
+ignore_paths:
+  - docs/**
+  - '**/*.md'
+  - '.github/**'
+  - '.changeset/**'
+  - '**/*.lock'
+  - '**/*.spec.ts'
+
+surface_area:
+  - libs/ts-rest/core/src/index.ts
+  - libs/ts-rest/core/src/lib/bumpkin-fixture.ts
+  - libs/ts-rest/*/src/index.ts
+
+use_difftastic: false
+semantic_fallback: true
+pre_1_0_breaking_as_minor: true
+docs_only_label: NO_BUMP

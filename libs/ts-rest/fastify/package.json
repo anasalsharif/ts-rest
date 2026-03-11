@@ -1,0 +1,13 @@
+{
+  "name": "@ts-rest/fastify",
+  "version": "3.52.1",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ts-rest/ts-rest.git",
+    "directory": "libs/ts-rest/fastify"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "fastify": "^4.0.0"
+  }
+}
