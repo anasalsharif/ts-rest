@@ -4,3 +4,5 @@ export {
   SchemaTransformerAsync,
   SchemaTransformerSync,
 } from './lib/types';
+
+export { convertSchemaObjectToMediaTypeObject } from './lib/utils';
