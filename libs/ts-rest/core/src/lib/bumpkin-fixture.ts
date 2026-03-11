@@ -18,7 +18,7 @@ export function fixtureDomainFromEmail(email: string): string {
 }
 
 export function fixtureIsActive(user: FixtureUser): boolean {
-  return user.active;
+  return Boolean(user.active);
 }
 
 export function fixtureToPublicUser(user: FixtureUser): Pick<FixtureUser, 'id' | 'active'> {
