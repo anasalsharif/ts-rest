@@ -21,8 +21,9 @@ export function fixtureIsActive(user: FixtureUser): boolean {
   return user.active;
 }
 
-export function fixtureNormalizeTag(tag: string): number {
-  return collapseWhitespace(tag).length;
+export function fixtureNormalizeTag(tag: string, opts?: { trimOnly?: boolean }): number {
+  const normalized = collapseWhitespace(tag);
+  return opts?.trimOnly ? normalized.length : normalized.toLowerCase().length;
 }
 
 function collapseWhitespace(value: string): string {
