@@ -21,6 +21,23 @@ if ! git rev-parse --verify "$BASE_BRANCH" >/dev/null 2>&1; then
   exit 1
 fi
 
+replace_once() {
+  local old="$1"
+  local new="$2"
+  python3 - "$FIXTURE_FILE" "$old" "$new" <<'PY'
+from pathlib import Path
+import sys
+
+path = Path(sys.argv[1])
+old = sys.argv[2]
+new = sys.argv[3]
+text = path.read_text()
+if old not in text:
+    raise SystemExit("pattern not found")
+path.write_text(text.replace(old, new, 1))
+PY
+}
+
 restore_base_files() {
   git checkout "$BASE_BRANCH" -- "$FIXTURE_FILE" "$DOC_NOTE" "$README_FILE" "$ISSUE_TEMPLATE"
 }
@@ -30,52 +47,59 @@ apply_case() {
 
   case "$case_id" in
     01)
-      perl -0pi -e "s/export type FixtureFetchUser = \(id: string\) => Promise<FixtureUser>;/export type FixtureFetchUser = (id: string, tenantId: string) => Promise<FixtureUser>;/" "$FIXTURE_FILE"
+      replace_once "export type FixtureFetchUser = (id: string) => Promise<FixtureUser>;" \
+        "export type FixtureFetchUser = (id: string, tenantId: string) => Promise<FixtureUser>;"
       ;;
     02)
-      perl -0pi -e "s/export function fixtureSlugFromEmail\(email: string\): string \{\n  return collapseWhitespace\(email\)\.toLowerCase\(\)\.replace\(\/\[\^a-z0-9\]\+\/g, '-'\);\n\}\n\n//s" "$FIXTURE_FILE"
+      replace_once $'export function fixtureSlugFromEmail(email: string): string {\n  return collapseWhitespace(email).toLowerCase().replace(/[^a-z0-9]+/g, '-');\n}\n\n' ""
       ;;
     03)
-      perl -0pi -e "s/  email: string;/  primaryEmail: string;/" "$FIXTURE_FILE"
+      replace_once "  email: string;" "  primaryEmail: string;"
       ;;
     04)
-      perl -0pi -e "s/export function fixtureNormalizeTag\(tag: string\): string \{\n  return collapseWhitespace\(tag\)\.toLowerCase\(\);\n\}/export function fixtureNormalizeTag(tag: string): number {\n  return collapseWhitespace(tag).length;\n}/" "$FIXTURE_FILE"
+      replace_once $'export function fixtureNormalizeTag(tag: string): string {\n  return collapseWhitespace(tag).toLowerCase();\n}' \
+        $'export function fixtureNormalizeTag(tag: string): number {\n  return collapseWhitespace(tag).length;\n}'
       ;;
     05)
-      perl -0pi -e "s/export function fixtureIsActive\(user: FixtureUser\): boolean \{/export function fixtureParseDomain(email: string): string {\n  return email.split('@')[1] ?? '';\n}\n\nexport function fixtureIsActive(user: FixtureUser): boolean {/" "$FIXTURE_FILE"
+      replace_once "export function fixtureIsActive(user: FixtureUser): boolean {" \
+        $'export function fixtureParseDomain(email: string): string {\n  return email.split("@")[1] ?? "";\n}\n\nexport function fixtureIsActive(user: FixtureUser): boolean {'
       ;;
     06)
-      perl -0pi -e "s/export const FIXTURE_PAGE_SIZE = 20;/export const FIXTURE_PAGE_SIZE = 20;\nexport const FIXTURE_MAX_RETRIES = 3;/" "$FIXTURE_FILE"
+      replace_once "export const FIXTURE_PAGE_SIZE = 20;" $'export const FIXTURE_PAGE_SIZE = 20;\nexport const FIXTURE_MAX_RETRIES = 3;'
       ;;
     07)
-      perl -0pi -e "s/  active: boolean;/  active: boolean;\n  displayName?: string;/" "$FIXTURE_FILE"
+      replace_once "  active: boolean;" $'  active: boolean;\n  displayName?: string;'
       ;;
     08)
-      perl -0pi -e "s/export const FIXTURE_PAGE_SIZE = 20;/export const FIXTURE_PAGE_SIZE = 20;\n\nexport type FixtureUserRole = 'admin' | 'member';/" "$FIXTURE_FILE"
+      replace_once "export const FIXTURE_PAGE_SIZE = 20;" $'export const FIXTURE_PAGE_SIZE = 20;\n\nexport type FixtureUserRole = "admin" | "member";'
       ;;
     09)
-      perl -0pi -e "s/export function fixtureNormalizeTag\(tag: string\): string \{\n  return collapseWhitespace\(tag\)\.toLowerCase\(\);\n\}/export function fixtureNormalizeTag(tag: string, opts?: { preserveCase?: boolean }): string {\n  const normalized = collapseWhitespace(tag);\n  return opts?.preserveCase ? normalized : normalized.toLowerCase();\n}/" "$FIXTURE_FILE"
+      replace_once $'export function fixtureNormalizeTag(tag: string): string {\n  return collapseWhitespace(tag).toLowerCase();\n}' \
+        $'export function fixtureNormalizeTag(tag: string, opts?: { preserveCase?: boolean }): string {\n  const normalized = collapseWhitespace(tag);\n  return opts?.preserveCase ? normalized : normalized.toLowerCase();\n}'
       ;;
     10)
-      perl -0pi -e "s/export function fixtureNormalizeTag\(tag: string\): string \{/export function fixtureToPublicUser(user: FixtureUser): Pick<FixtureUser, 'id' | 'active'> {\n  return { id: user.id, active: user.active };\n}\n\nexport function fixtureNormalizeTag(tag: string): string {/" "$FIXTURE_FILE"
+      replace_once "export function fixtureNormalizeTag(tag: string): string {" \
+        $'export function fixtureToPublicUser(user: FixtureUser): Pick<FixtureUser, "id" | "active"> {\n  return { id: user.id, active: user.active };\n}\n\nexport function fixtureNormalizeTag(tag: string): string {'
       ;;
     11)
-      perl -0pi -e "s/return collapseWhitespace\(email\)\.toLowerCase\(\)\.replace\(\/\[\^a-z0-9\]\+\/g, '-'\);/return collapseWhitespace(email).toLowerCase().replace(\/[^a-z0-9]+\/g, '-').replace(\/-{2,}\/g, '-');/" "$FIXTURE_FILE"
+      replace_once "return collapseWhitespace(email).toLowerCase().replace(/[^a-z0-9]+/g, '-');" \
+        "return collapseWhitespace(email).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/-{2,}/g, '-');"
       ;;
     12)
-      perl -0pi -e "s/return user\.active;/return Boolean(user.active);/" "$FIXTURE_FILE"
+      replace_once "return user.active;" "return Boolean(user.active);"
       ;;
     13)
-      perl -0pi -e "s/export const FIXTURE_PAGE_SIZE = 20;/export const FIXTURE_PAGE_SIZE = 25;/" "$FIXTURE_FILE"
+      replace_once "export const FIXTURE_PAGE_SIZE = 20;" "export const FIXTURE_PAGE_SIZE = 25;"
       ;;
     14)
-      perl -0pi -e "s/return value\.trim\(\)\.replace\(\\s\+\/g, ' '\);/return value.trim().replace(\/[ _]+\/g, ' ').replace(\\/\\s+\\/g, ' ');/" "$FIXTURE_FILE"
+      replace_once "return value.trim().replace(/\\s+/g, ' ');" "return value.trim().replace(/[ _]+/g, ' ').replace(/\\s+/g, ' ');"
       ;;
     15)
-      perl -0pi -e "s/return collapseWhitespace\(tag\)\.toLowerCase\(\);/return collapseWhitespace(tag).toLowerCase().replace(/[-.]+4/, '');/" "$FIXTURE_FILE"
+      replace_once "return collapseWhitespace(tag).toLowerCase();" "return collapseWhitespace(tag).toLowerCase().replace(/[-.]+$/g, '');"
       ;;
     16)
-      perl -0pi -e "s/export function fixtureSlugFromEmail\(email: string\): string \{\n  return collapseWhitespace\(email\)\.toLowerCase\(\)\.replace\(\/\[\^a-z0-9\]\+\/g, '-'\);\n\}/export function fixtureSlugFromEmail(email: string): string {\n  if (!email.trim()) {\n    return 'user';\n  }\n  return collapseWhitespace(email).toLowerCase().replace(\/[^a-z0-9]+\/g, '-');\n}/" "$FIXTURE_FILE"
+      replace_once $'export function fixtureSlugFromEmail(email: string): string {\n  return collapseWhitespace(email).toLowerCase().replace(/[^a-z0-9]+/g, '-');\n}' \
+        $'export function fixtureSlugFromEmail(email: string): string {\n  if (!email.trim()) {\n    return "user";\n  }\n  return collapseWhitespace(email).toLowerCase().replace(/[^a-z0-9]+/g, '-');\n}'
       ;;
     17)
       printf "\n- Case 17: docs-only note refreshed for NO_BUMP validation.\n" >> "$DOC_NOTE"
