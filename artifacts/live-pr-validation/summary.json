@@ -1,0 +1,11 @@
+{
+  "total_cases": 20,
+  "classified_cases": 15,
+  "pass": 14,
+  "fail": 1,
+  "accuracy": 0.9333333333333333,
+  "manual_review": 5,
+  "missing_pr": 0,
+  "not_merged": 0,
+  "missing_comment": 0
+}

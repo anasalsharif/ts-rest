@@ -1,0 +1,21 @@
+case	expected	actual	status	pr	url
+01	MAJOR		manual_review	1	https://github.com/anasalsharif/ts-rest/pull/1
+02	MAJOR	MAJOR	pass	2	https://github.com/anasalsharif/ts-rest/pull/2
+03	MAJOR	MAJOR	pass	3	https://github.com/anasalsharif/ts-rest/pull/3
+04	MAJOR	MAJOR	pass	4	https://github.com/anasalsharif/ts-rest/pull/4
+05	MINOR	MINOR	pass	5	https://github.com/anasalsharif/ts-rest/pull/5
+06	MINOR	MINOR	pass	6	https://github.com/anasalsharif/ts-rest/pull/6
+07	MINOR		manual_review	7	https://github.com/anasalsharif/ts-rest/pull/7
+08	MINOR	MINOR	pass	8	https://github.com/anasalsharif/ts-rest/pull/8
+09	MINOR	MAJOR	fail	9	https://github.com/anasalsharif/ts-rest/pull/9
+10	MINOR	MINOR	pass	10	https://github.com/anasalsharif/ts-rest/pull/10
+11	PATCH		manual_review	11	https://github.com/anasalsharif/ts-rest/pull/11
+12	PATCH		manual_review	12	https://github.com/anasalsharif/ts-rest/pull/12
+13	PATCH		manual_review	13	https://github.com/anasalsharif/ts-rest/pull/13
+14	PATCH	PATCH	pass	14	https://github.com/anasalsharif/ts-rest/pull/14
+15	PATCH	PATCH	pass	15	https://github.com/anasalsharif/ts-rest/pull/15
+16	PATCH	PATCH	pass	16	https://github.com/anasalsharif/ts-rest/pull/16
+17	NO_BUMP	NO_BUMP	pass	17	https://github.com/anasalsharif/ts-rest/pull/17
+18	NO_BUMP	NO_BUMP	pass	18	https://github.com/anasalsharif/ts-rest/pull/18
+19	NO_BUMP	NO_BUMP	pass	19	https://github.com/anasalsharif/ts-rest/pull/19
+20	NO_BUMP	NO_BUMP	pass	20	https://github.com/anasalsharif/ts-rest/pull/20
