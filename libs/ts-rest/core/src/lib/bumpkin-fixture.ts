@@ -14,6 +14,9 @@ export type FixtureUserRole = 'admin' | 'member';
 export const FIXTURE_MAX_RETRIES = 3;
 
 export function fixtureDomainFromEmail(email: string): string {
+  if (!email.trim()) {
+    return '';
+  }
   return email.split('@')[1] ?? '';
 }
 
