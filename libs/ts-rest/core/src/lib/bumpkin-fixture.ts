@@ -17,8 +17,8 @@ export function fixtureIsActive(user: FixtureUser): boolean {
   return user.active;
 }
 
-export function fixtureNormalizeTag(tag: string): string {
-  return collapseWhitespace(tag).toLowerCase();
+export function fixtureNormalizeTag(tag: string): number {
+  return collapseWhitespace(tag).length;
 }
 
 function collapseWhitespace(value: string): string {
