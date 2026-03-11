@@ -175,3 +175,5 @@ Since our first commit in 2022 we've been growing steadily. We're proud of our p
 <!-- bumpkin-fixture docs wording update for no-bump case 18 -->
 
 > Note: documentation wording updated for Bumpkin NO_BUMP fixture validation.
+
+> Validation note: bumpkin 0.11.0 output format check.
