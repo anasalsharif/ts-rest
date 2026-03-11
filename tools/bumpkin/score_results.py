@@ -42,7 +42,7 @@ def load_manifest() -> list[CaseRow]:
     return rows
 
 
-def find_bumpkin_label(pr_number: int) -> str | None:
+def find_bumpkin_outcome(pr_number: int) -> tuple[str | None, str]:
     out = run_gh([
         "pr",
         "view",
@@ -56,10 +56,13 @@ def find_bumpkin_label(pr_number: int) -> str | None:
         body = str(comment.get("body", ""))
         if "<!-- bumpkin:recommendation -->" not in body:
             continue
-        m = REC_RE.search(body)
-        if m:
-            return m.group(1)
-    return None
+        match = REC_RE.search(body)
+        if match:
+            return match.group(1), "classified"
+        if "Manual Review Required" in body or "Manual review required" in body:
+            return None, "manual_review"
+        return None, "unknown_bumpkin_comment"
+    return None, "missing_comment"
 
 
 def main() -> int:
@@ -108,14 +111,40 @@ def main() -> int:
             )
             continue
 
-        observed = find_bumpkin_label(pr_number)
-        if not observed:
+        observed, outcome = find_bumpkin_outcome(pr_number)
+        if outcome == "missing_comment":
             records.append(
                 {
                     "case": row.case_id,
                     "expected": row.expected,
                     "actual": "",
                     "status": "missing_comment",
+                    "pr": str(pr_number),
+                    "url": str(pr.get("url", "")),
+                }
+            )
+            continue
+
+        if outcome == "manual_review":
+            records.append(
+                {
+                    "case": row.case_id,
+                    "expected": row.expected,
+                    "actual": "",
+                    "status": "manual_review",
+                    "pr": str(pr_number),
+                    "url": str(pr.get("url", "")),
+                }
+            )
+            continue
+
+        if outcome != "classified" or not observed:
+            records.append(
+                {
+                    "case": row.case_id,
+                    "expected": row.expected,
+                    "actual": "",
+                    "status": outcome,
                     "pr": str(pr_number),
                     "url": str(pr.get("url", "")),
                 }
@@ -154,13 +183,14 @@ def main() -> int:
     total = len(records)
     passes = sum(1 for r in records if r["status"] == "pass")
     fails = sum(1 for r in records if r["status"] == "fail")
-    merged = sum(1 for r in records if r["status"] in {"pass", "fail", "missing_comment"})
+    classified = passes + fails
     summary = {
         "total_cases": total,
-        "merged_cases": merged,
+        "classified_cases": classified,
         "pass": passes,
         "fail": fails,
-        "accuracy": (passes / merged) if merged else 0.0,
+        "accuracy": (passes / classified) if classified else 0.0,
+        "manual_review": sum(1 for r in records if r["status"] == "manual_review"),
         "missing_pr": sum(1 for r in records if r["status"] == "missing_pr"),
         "not_merged": sum(1 for r in records if r["status"] == "not_merged"),
         "missing_comment": sum(1 for r in records if r["status"] == "missing_comment"),
