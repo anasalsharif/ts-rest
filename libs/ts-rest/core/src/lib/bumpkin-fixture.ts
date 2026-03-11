@@ -31,5 +31,5 @@ export function fixtureNormalizeTag(tag: string, opts?: { trimOnly?: boolean }):
 }
 
 function collapseWhitespace(value: string): string {
-  return value.trim().replace(/\s+/g, ' ').replace(/ {2,}/g, ' ');
+  return value.trim().replace(/[ _]+/g, ' ').replace(/\s+/g, ' ').replace(/ {2,}/g, ' ');
 }
