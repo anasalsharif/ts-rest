@@ -1,6 +1,6 @@
 export interface FixtureUser {
   id: string;
-  email: string;
+  primaryEmail: string;
   active: boolean;
 }
 
