@@ -64,3 +64,6 @@ uploads/
 # Python cache
 __pycache__/
 *.pyc
+
+# Local eval artifacts
+artifacts/
