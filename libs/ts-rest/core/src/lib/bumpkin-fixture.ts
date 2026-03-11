@@ -9,6 +9,8 @@ export type FixtureFetchUser = (id: string, tenantId: string) => Promise<Fixture
 
 export const FIXTURE_API_VERSION = 'v1';
 export const FIXTURE_PAGE_SIZE = 20;
+
+export type FixtureUserRole = 'admin' | 'member';
 export const FIXTURE_MAX_RETRIES = 3;
 
 export function fixtureDomainFromEmail(email: string): string {
