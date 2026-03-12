@@ -2,7 +2,7 @@ export interface FixtureUser {
   id: string;
   primaryEmail: string;
   active: boolean;
-  displayName?: string;
+  displayName: string | null;
 }
 
 export type FixtureFetchUser = (id: string, tenantId: string) => Promise<FixtureUser>;
