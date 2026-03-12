@@ -51,7 +51,13 @@ const syncFunc: GetSyncFunction<GetQueryParameterHelper> = ({
     return [];
   }
 
-  return schemaObjectToParameters(transformedSchema, 'query', jsonQuery);
+  const queryParameters = schemaObjectToParameters(
+    transformedSchema,
+    'query',
+    jsonQuery,
+  );
+
+  return queryParameters;
 };
 
 const asyncFunc: GetAsyncFunction<GetQueryParameterHelper> = async ({
