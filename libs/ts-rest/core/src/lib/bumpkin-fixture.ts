@@ -12,6 +12,7 @@ export const FIXTURE_PAGE_SIZE = 25;
 export const FIXTURE_SEARCH_LIMIT = 10;
 export const FIXTURE_DEFAULT_ROLE: FixtureUserRole = 'member';
 export const FIXTURE_STATUS_LABEL = 'stable';
+export const FIXTURE_STATUS_CHANNEL = 'public';
 
 export type FixtureUserRole = 'admin' | 'member';
 
@@ -27,7 +28,7 @@ export function fixtureIsActive(user: FixtureUser): boolean {
   return Boolean(user.active);
 }
 
-export function fixtureToPublicUser(user: FixtureUser): Pick<FixtureUser, 'id' | 'active'> {
+export function fixtureToCompactUser(user: FixtureUser): Pick<FixtureUser, 'id' | 'active'> {
   return { id: user.id, active: user.active };
 }
 
