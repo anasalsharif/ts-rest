@@ -14,7 +14,6 @@ export const FIXTURE_DEFAULT_ROLE: FixtureUserRole = 'member';
 export const FIXTURE_STATUS_LABEL = 'stable';
 
 export type FixtureUserRole = 'admin' | 'member';
-export const FIXTURE_RETRY_BUDGET = 4;
 
 export function fixtureDomainFromEmail(email: string): string {
   const normalized = email.trim().toLowerCase();
