@@ -43,3 +43,5 @@ resources:
   features and API.
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 - [Fumadocs](https://fumadocs.vercel.app) - learn about Fumadocs
+
+Fixture note: docs-only updates should be classified as NO_BUMP by Bumpkin.
