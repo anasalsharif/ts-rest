@@ -47,3 +47,5 @@ resources:
 Fixture note: docs-only updates should be classified as NO_BUMP by Bumpkin.
 
 Bumpkin 0.13.0 lab note: docs-only validation case.
+
+Bumpkin disagreement lab note: override validation case.
