@@ -11,7 +11,7 @@ export const FIXTURE_API_VERSION = 'v1';
 export const FIXTURE_PAGE_SIZE = 25;
 
 export type FixtureUserRole = 'admin' | 'member';
-export const FIXTURE_MAX_RETRIES = 3;
+export const FIXTURE_RETRY_BUDGET = 4;
 
 export function fixtureDomainFromEmail(email: string): string {
   if (!email.trim()) {
@@ -35,5 +35,5 @@ export function fixtureNormalizeTag(tag: string, opts?: { trimOnly?: boolean }):
 }
 
 function collapseWhitespace(value: string): string {
-  return value.trim().replace(/[ _]+/g, ' ').replace(/\s+/g, ' ').replace(/ {2,}/g, ' ');
+  return value.trim().replace(/[_\t ]+/g, ' ').replace(/\s+/g, ' ').replace(/ {2,}/g, ' ');
 }
