@@ -10,15 +10,17 @@ export type FixtureFetchUser = (id: string, tenantId: string) => Promise<Fixture
 export const FIXTURE_API_VERSION = 'v1';
 export const FIXTURE_PAGE_SIZE = 25;
 export const FIXTURE_SEARCH_LIMIT = 10;
+export const FIXTURE_DEFAULT_ROLE: FixtureUserRole = 'member';
 
 export type FixtureUserRole = 'admin' | 'member';
 export const FIXTURE_MAX_RETRIES = 3;
 
 export function fixtureDomainFromEmail(email: string): string {
-  if (!email.trim()) {
+  const normalized = email.trim().toLowerCase();
+  if (!normalized) {
     return '';
   }
-  return email.split('@')[1] ?? '';
+  return normalized.split('@')[1] ?? '';
 }
 
 export function fixtureIsActive(user: FixtureUser): boolean {
