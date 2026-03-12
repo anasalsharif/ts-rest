@@ -11,6 +11,7 @@ export const FIXTURE_API_VERSION = 'v1';
 export const FIXTURE_PAGE_SIZE = 25;
 export const FIXTURE_SEARCH_LIMIT = 10;
 export const FIXTURE_DEFAULT_ROLE: FixtureUserRole = 'member';
+export const FIXTURE_STATUS_LABEL = 'stable';
 
 export type FixtureUserRole = 'admin' | 'member';
 export const FIXTURE_RETRY_BUDGET = 4;
