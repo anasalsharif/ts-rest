@@ -45,3 +45,5 @@ resources:
 - [Fumadocs](https://fumadocs.vercel.app) - learn about Fumadocs
 
 Fixture note: docs-only updates should be classified as NO_BUMP by Bumpkin.
+
+Bumpkin 0.13.0 lab note: docs-only validation case.
