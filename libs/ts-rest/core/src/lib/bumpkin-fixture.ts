@@ -33,11 +33,12 @@ export function fixtureToCompactUser(user: FixtureUser): Pick<FixtureUser, 'id' 
 }
 
 export function fixtureNormalizeTag(tag: string, opts?: { trimOnly?: boolean }): number {
-  const normalized = collapseWhitespace(tag);
+  const normalized = collapseWhitespace(tag, true);
   const lowered = normalized.toLowerCase().replace(/[-.]+$/g, '');
   return opts?.trimOnly ? normalized.length : lowered.length;
 }
 
-function collapseWhitespace(value: string): string {
-  return value.trim().replace(/[_\t ]+/g, ' ').replace(/\s+/g, ' ').replace(/ {2,}/g, ' ');
+function collapseWhitespace(value: string, collapseTabs: boolean): string {
+  const collapsePattern = collapseTabs ? /[_\t ]+/g : /[ _]+/g;
+  return value.trim().replace(collapsePattern, ' ').replace(/\s+/g, ' ').replace(/ {2,}/g, ' ');
 }
