@@ -15,6 +15,7 @@ export const FIXTURE_STATUS_LABEL = 'stable';
 export const FIXTURE_STATUS_CHANNEL = 'public';
 export const FIXTURE_EXPERIMENTAL_BATCH_SIZE = 50;
 export const FIXTURE_RETRY_WINDOW_MS = 1500;
+export const FIXTURE_CHUNK_VALIDATION_LIMIT = 64;
 
 export type FixtureUserRole = 'admin' | 'member';
 
