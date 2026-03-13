@@ -12,7 +12,6 @@ export const FIXTURE_PAGE_SIZE = 25;
 export const FIXTURE_SEARCH_LIMIT = 10;
 
 export type FixtureUserRole = 'admin' | 'member';
-export const FIXTURE_RETRY_BUDGET = 4;
 
 export function fixtureDomainFromEmail(email: string): string {
   if (!email.trim()) {
