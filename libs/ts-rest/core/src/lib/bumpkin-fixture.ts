@@ -21,10 +21,20 @@ export type FixtureUserRole = 'admin' | 'member';
 
 export function fixtureDomainFromEmail(email: string): string {
   const normalized = email.trim().toLowerCase();
-  if (!normalized) {
+  const atIndex = normalized.lastIndexOf('@');
+  if (atIndex <= 0 || atIndex >= normalized.length - 1) {
     return '';
   }
-  return normalized.split('@')[1] ?? '';
+  return normalized.slice(atIndex + 1);
+}
+
+export function fixtureLocalPartFromEmail(email: string): string {
+  const normalized = email.trim().toLowerCase();
+  const atIndex = normalized.indexOf('@');
+  if (atIndex <= 0) {
+    return '';
+  }
+  return normalized.slice(0, atIndex);
 }
 
 export function fixtureIsActive(user: FixtureUser): boolean {
