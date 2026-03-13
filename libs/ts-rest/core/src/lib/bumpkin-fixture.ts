@@ -37,6 +37,15 @@ export function fixtureLocalPartFromEmail(email: string): string {
   return normalized.slice(0, atIndex);
 }
 
+export function fixtureNormalizeEmail(email: string): string {
+  const local = fixtureLocalPartFromEmail(email);
+  const domain = fixtureDomainFromEmail(email);
+  if (!local || !domain) {
+    return '';
+  }
+  return `${local}@${domain}`;
+}
+
 export function fixtureIsActive(user: FixtureUser): boolean {
   return Boolean(user.active);
 }
@@ -54,5 +63,5 @@ export function fixtureNormalizeTag(tag: string, opts?: { trimOnly?: boolean }):
 function collapseWhitespace(value: string, collapseTabs: boolean): string {
   const collapsePattern = collapseTabs ? /[_\t ]+/g : /[ _]+/g;
   const collapsed = value.trim().replace(collapsePattern, ' ');
-  return collapsed.split(/\s+/).join(' ');
+  return collapsed.split(/\s+/).filter(Boolean).join(' ');
 }
