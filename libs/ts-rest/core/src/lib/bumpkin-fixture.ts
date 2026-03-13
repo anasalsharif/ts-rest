@@ -9,6 +9,7 @@ export type FixtureFetchUser = (id: string, tenantId: string) => Promise<Fixture
 
 export const FIXTURE_API_VERSION = 'v1';
 export const FIXTURE_PAGE_SIZE = 25;
+export const FIXTURE_SEARCH_LIMIT = 10;
 
 export type FixtureUserRole = 'admin' | 'member';
 export const FIXTURE_MAX_RETRIES = 3;
