@@ -3,7 +3,7 @@ name: Bumpkin
 on:
   pull_request:
     types: [closed]
-    branches: [main]
+    branches: [main, corpus/replay-base-20260313]
 
 concurrency:
   group: bumpkin-${{ github.event.pull_request.number }}
